@@ -13,6 +13,7 @@ from src.language import runner
 Мутатор возвращает результат каждого возможного изменения при вызове на программе
 """
 
+
 class Mutator:
     def __init__(self):
         self.mutators = [self.mutate_delete, self.mutate_add, self.mutate_replace, self.mutate_swap]
@@ -22,7 +23,6 @@ class Mutator:
         commands = list(runner.commands.keys())
         command = random.choice(commands)
         return command
-
 
     # Удаляем команду по случайной позиции
     @staticmethod
@@ -40,7 +40,6 @@ class Mutator:
             program.insert(random.randrange(0, n), command)
         else:
             program.append(command)
-
 
     # Заменяем случайную команду на случайную
     @staticmethod
@@ -71,5 +70,6 @@ class Mutator:
         for i in range(count):
             res.append([Mutator.gen_random_command()])
         return res
+
 
 mutator = Mutator()

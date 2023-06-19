@@ -51,6 +51,16 @@ class StackLang:
             return None
         return self.result()
 
+    def run_generator(self, program):
+        self._stack = copy.copy(self.start)
+        try:
+            for command in program:
+                self.commands[command]()
+                yield command, self.result()
+        except Exception:
+            return None
+        return self.result()
+
     def push(self):
         self._stack.append(0)
 
