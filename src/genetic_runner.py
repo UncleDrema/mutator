@@ -1,4 +1,4 @@
-from src.fitness import fitness
+from src.fitness import fitness, get_metrics
 from src.language import runner
 from src.mutator import mutator
 
@@ -56,8 +56,9 @@ def run_genetic(start, target, take=10, max_iter=1000, iter_step=100, execute=Fa
             new_programs = mutator.get_mutated(best_program)
         programs = new_programs
 
-    print(f'Best score: {best_score}\nBest program: {best_program}')
-    print(f'Best result: {runner.run(best_program)}\nWhen expected: {target}')
+    print(f'Best program: {best_program}\nBest result: {runner.run(best_program)}\nWhen expected: {target}')
+    metrics = get_metrics(best_program, target)
+    print(f'Error: {metrics["error"]}\nDistance: {metrics["distance"]}\nLength: {metrics["length"]}\nDiff: {metrics["diff"]}\nTotal score: {best_score}')
     if execute:
         print('Executing best program:')
         print(f'Start stack: {start}')
