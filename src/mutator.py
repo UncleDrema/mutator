@@ -56,12 +56,13 @@ class Mutator:
             i, j = random.sample(range(n), 2)
             program[i], program[j] = program[j], program[i]
 
-    def get_mutated(self, program):
+    def get_mutated(self, program, repeats=1):
         res = [program]
-        for mutator in self.mutators:
-            new_program = copy.deepcopy(program)
-            mutator(new_program)
-            res.append(new_program)
+        for _ in range(repeats):
+            for mut in self.mutators:
+                new_program = copy.deepcopy(program)
+                mut(new_program)
+                res.append(new_program)
         return res
 
     @staticmethod

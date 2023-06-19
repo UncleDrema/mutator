@@ -17,7 +17,7 @@ def remove_duplicates(new_programs):
 def run_genetic(start, target, take=10, max_iter=1000, iter_step=100, execute=False, verbose=False):
     runner.set_start(start)
     programs = [[]]
-    best_score = int(1e9)
+    best_score = int(1e16)
     best_program = []
     for i in range(max_iter):
         new_programs = []
@@ -53,7 +53,7 @@ def run_genetic(start, target, take=10, max_iter=1000, iter_step=100, execute=Fa
 
         # Если не осталось, начинаем с мутаций лучшей программы
         if len(new_programs) == 0:
-            new_programs = mutator.get_mutated(best_program)
+            new_programs = mutator.get_mutated(best_program, 3)
         programs = new_programs
 
     print(f'Best program: {best_program}\nBest result: {runner.run(best_program)}\nWhen expected: {target}')

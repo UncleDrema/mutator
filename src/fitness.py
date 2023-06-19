@@ -37,15 +37,17 @@ def get_metrics(program, expected):
     # Теперь считаем расстояние
     distance = 0
     for i in range(len(result)):
-        distance += abs(result[i] - expected[i])
+        difference = abs(result[i] - expected[i])
+        if difference > 0:
+            difference = max(5, difference)
+        distance += difference ** 2
     metrics['distance'] = distance
     # Учитываем длину программы
     length = len(program)
     metrics['length'] = length
     return metrics
 
-
-def fitness(program, expected, err_penalty=10000, dist_penalty=64, len_penalty=8, diff_penalty=1):
+def fitness(program, expected, err_penalty=100000, dist_penalty=16, len_penalty=2, diff_penalty=1):
     m = get_metrics(program, expected)
     res = 0
     res += m['error'] * err_penalty
